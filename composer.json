@@ -13,6 +13,12 @@
     "support": {
         "issues": "https://github.com/acquia/perz-api-php/issues"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/acquia/perz-api-php"
+        }
+    ],
     "require": {
         "acquia/http-hmac-php": "~3.4|~4.1.2",
         "ext-json": "*",
