@@ -1,0 +1,50 @@
+{
+    "name": "acquia/perz-api-php",
+    "type": "library",
+    "description": "A PHP Client library to consume the CIS API.",
+    "homepage": "https://github.com/acquia/perz-api-php",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "See Contributors",
+            "homepage": "https://github.com/acquia/perz-api-php/graphs/contributors"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/acquia/perz-api-php/issues"
+    },
+    "require": {
+        "acquia/http-hmac-php": "~3.4|~4.1.2",
+        "ext-json": "*",
+        "php": ">=7.1",
+        "psr/log": "~1.0",
+        "guzzlehttp/guzzle": "~6.0",
+        "symfony/event-dispatcher": "^3.4 || ^4.3",
+        "symfony/http-foundation": "^3.4 || ^4.3",
+        "symfony/serializer": "^3.4 || ^4.3"
+    },
+    "require-dev": {
+        "drupal/coder": "^8.3",
+        "mockery/mockery": "^1.2",
+        "pdepend/pdepend": "~1.0",
+        "phploc/phploc": "~2.0",
+        "phpmd/phpmd": "~1.0",
+        "phpunit/phpunit": "^7",
+        "scrutinizer/ocular": "~1.0",
+        "sebastian/phpcpd": "~2.0",
+        "squizlabs/php_codesniffer": "^3.5"
+    },
+    "suggest": {
+        "ramsey/uuid": "A PHP 5.4+ library for generating RFC 4122 version 1, 3, 4, and 5 universally unique identifiers (UUID)"
+    },
+    "autoload": {
+        "psr-4": {
+            "Acquia\\PerzApiPhp\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Acquia\\PerzApiPhp\\": "test/"
+        }
+    }
+}

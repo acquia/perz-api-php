@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit backupGlobals="false"
+         backupStaticAttributes="false"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="false"
+         bootstrap="test/bootstrap.php"
+         colors="true">
+
+    <testsuites>
+        <testsuite name="Perz CIS PHP Library">
+            <directory suffix="Test.php">test</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">src</directory>
+            <exclude>
+                <file>src/ObjectFactory.php</file>
+                <file>src/ContentHubLibraryEvents.php</file>
+                <directory suffix=".php">src/Guzzle</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+
+    <logging>
+        <log type="coverage-html" target="build/coverage" />
+        <log type="coverage-xml" target="infection/coverage-xml"/>
+        <log type="coverage-clover" target="build/logs/clover.xml" />
+        <log type="junit" target="build/logs/junit.xml" />
+    </logging>
+
+</phpunit>
