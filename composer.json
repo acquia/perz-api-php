@@ -3,11 +3,12 @@
     "type": "library",
     "description": "A PHP Client library to consume the CIS API.",
     "homepage": "https://github.com/acquia/perz-api-php",
-    "license": "MIT",
+    "license": "GPL-2.0-or-later",
     "authors": [
         {
-            "name": "See Contributors",
-            "homepage": "https://github.com/acquia/perz-api-php/graphs/contributors"
+            "name": "Acquia Engineering",
+            "homepage": "https://www.acquia.com",
+            "role": "Maintainer"
         }
     ],
     "support": {
