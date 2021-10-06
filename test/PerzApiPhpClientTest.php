@@ -51,17 +51,27 @@ class PerzApiPhpClientTest extends TestCase {
 //    ];
     $realm = 'Acquia';
     $middleware = new HmacAuthMiddleware($key, $realm);
+    $graphQLQuery = <<<GQL
+  query discoverEntities(\$page: Int! = 0) {
+    discover_entities(page: \$page) {
+      page_info {
+        total_count
+        current_page_count
+        current_page
+        next_page
+        prev_page
+      }
+      items {
+        entity_type_id
+        entity_uuid
+      }
+    }
+  }
+GQL;
+    $client = new PerzApiPhpClient(['base_url' => 'http://acquia-perz.ddev.site/'], $middleware);
+    $response =  $client->graphqltest($graphQLQuery);
+    var_dump($response);
 
-    $client = new PerzApiPhpClient($middleware);
-    $response =  $client->pushEntity(
-      'post',
-      'http://acquia-perz.ddev.site/api/entity-save-endpoint',
-      'node',
-      '6bcc1820-5171-43fd-ad61-39b4ce078406'
-    );
-//    var_dump($response);
-
-    var_dump($response->getHeader('X-Server-Authorization-HMAC-SHA256'));//    return $client;
   }
 
 }

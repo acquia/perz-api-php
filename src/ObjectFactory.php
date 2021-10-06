@@ -68,7 +68,6 @@ class ObjectFactory {
     return HandlerStack::create();
   }
 
-
   /**
    * @param string $method
    * @param string $base_url
@@ -144,6 +143,5 @@ class ObjectFactory {
       $exception->getMessage());
     throw new \Exception($message);
   }
-
 
 }
