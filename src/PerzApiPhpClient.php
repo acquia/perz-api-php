@@ -9,24 +9,15 @@ use GuzzleHttp\HandlerStack;
 use function GuzzleHttp\default_user_agent;
 
 /**
- * Class PerzApiPhpClient.
+ * Class PerzApiPhpClient: A php client to Integrate Personalization APIs.
  *
  * @package Acquia\PerzApiPhp
  */
 class PerzApiPhpClient extends Client {
 
-  const VERSION = '1.0.0';
-
-  const LIBRARYNAME = 'AcquiaPerzApiPhpLib';
+  const LIBRARYNAME = 'AcquiaPerzApiPhp';
 
   const OPTION_NAME_LANGUAGES = 'client-languages';
-
-  /**
-   * The settings.
-   *
-   * @var \Acquia\PerzApiPhp\Settings
-   */
-  protected $settings;
 
   /**
    * {@inheritdoc}
@@ -47,9 +38,9 @@ class PerzApiPhpClient extends Client {
    * {@inheritdoc}
    */
   public function __construct(
-    array $config = [],
     HmacAuthMiddleware $middleware,
-    $api_version = ''
+    array $config = [],
+    string $api_version = ''
   ) {
 
     if (!isset($config['base_uri']) && isset($config['base_url'])) {
@@ -91,19 +82,17 @@ class PerzApiPhpClient extends Client {
   }
 
   /**
+   * Push entity to Personalization.
    *
-   */
-  public function __call($method, $args) {
-    parent::__call($method, $args);
-  }
-
-  /**
    * @param string $entity_type
+   *   Type of the Entity.
    * @param string $entity_id
+   *   ID of the Entity.
+   *
    * @return \Psr\Http\Message\ResponseInterface|void
-   * @throws \Exception
+   *   Response.
    */
-  public function pushEntity($entity_type, $entity_id) {
+  public function pushEntity(string $entity_type, string $entity_id) {
     $options['body'] = json_encode([
       'entity_type_id' => $entity_type,
       'entity_uuid' => $entity_id,
@@ -112,19 +101,40 @@ class PerzApiPhpClient extends Client {
   }
 
   /**
+   * Push multiple entities to Personalization.
+   *
    * @param array $data
+   *   An array of Entity data.
+   *
    * @return \Psr\Http\Message\ResponseInterface|void
+   *   Response.
    */
-  public function pushEntities($data) {
+  public function pushEntities(array $data) {
     $options['body'] = json_encode($data);
     return $this->request('post', '/v1/webhook', $options);
   }
 
   /**
-   * @param array $data
-   * @return \Psr\Http\Message\ResponseInterface|void
+   * Graphql request.
+   *
+   * * @param string $query
+   *    Grahql Query string.
    */
-  public function pushVariations($data) {
+  public function graphql(array $data) {
+    $options['body'] = $data;
+    return $this->request('post', '/perz3', $options);
+  }
+
+  /**
+   * Push entity to Personalization.
+   *
+   * @param array $data
+   *   An array of Entity data.
+   *
+   * @return \Psr\Http\Message\ResponseInterface|void
+   *   Response.
+   */
+  public function pushVariations(array $data) {
     $options['body'] = json_encode($data);
     return $this->request('post', '/api/push-variations-endpoint', $options);
   }

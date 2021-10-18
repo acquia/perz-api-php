@@ -7,7 +7,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 
 /**
- * Class RequestResponseHandler.
+ * Class RequestResponseHandler : Handles Request and Response for the client.
  */
 class RequestResponseHandler {
 

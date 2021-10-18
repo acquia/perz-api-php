@@ -68,9 +68,11 @@ class PerzApiPhpClientTest extends TestCase {
     }
   }
 GQL;
+
+    $q = '{"query":"query getEntityVariations($entity_type_id: String!, $entity_uuid: String!) {\\n    entity_variations(entity_type_id: $entity_type_id, entity_uuid: $entity_uuid) {\\n      content_uuid,\\n      label,\\n      content_type,\\n      view_mode,\\n      language,\\n      updated,\\n      rendered_data,\\n      relations {\\n        field,\\n        terms\\n      }\\n    }\\n  }","variables":{"entity_type_id": "node","entity_uuid": "e549e7fc-1c15-4caa-b201-6f10abb06906"}}';
     $client = new PerzApiPhpClient(['base_url' => 'http://acquia-perz.ddev.site/'], $middleware);
-    $response =  $client->graphqltest($graphQLQuery);
-    var_dump($response);
+    $response =  $client->graphql($q);
+    var_dump($response->getBody()->getContents());
 
   }
 

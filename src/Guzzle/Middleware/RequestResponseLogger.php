@@ -8,9 +8,7 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class RequestResponseLogger.
- *
- * @package Acquia\ContentHubClient\Guzzle\Middleware
+ * Class RequestResponseLogger : logs request and response.
  */
 class RequestResponseLogger {
 
