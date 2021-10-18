@@ -25,10 +25,7 @@
         "ext-json": "*",
         "php": ">=7.1",
         "psr/log": "~1.0",
-        "guzzlehttp/guzzle": "~6.0",
-        "symfony/event-dispatcher": "^3.4 || ^4.3",
-        "symfony/http-foundation": "^3.4 || ^4.3",
-        "symfony/serializer": "^3.4 || ^4.3"
+        "guzzlehttp/guzzle": "~6.0"
     },
     "require-dev": {
         "drupal/coder": "^8.3",
