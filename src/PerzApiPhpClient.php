@@ -136,7 +136,7 @@ class PerzApiPhpClient extends Client {
    */
   public function pushVariations(array $data) {
     $options['body'] = json_encode($data);
-    return $this->request('post', '/api/push-variations-endpoint', $options);
+    return $this->request('post', '/v1/contents', $options);
   }
 
   /**
