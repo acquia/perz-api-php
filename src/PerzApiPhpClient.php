@@ -88,14 +88,17 @@ class PerzApiPhpClient extends Client {
    *   Type of the Entity.
    * @param string $entity_id
    *   ID of the Entity.
+   * @param string $op
+   *   The operation (normal|fake).
    *
    * @return \Psr\Http\Message\ResponseInterface|void
    *   Response.
    */
-  public function pushEntity(string $entity_type, string $entity_id) {
+  public function pushEntity(string $entity_type, string $entity_id, string $op = 'normal') {
     $options['body'] = json_encode([
       'entity_type_id' => $entity_type,
       'entity_uuid' => $entity_id,
+      'op' => $op,
     ]);
     return $this->request('post', '/v1/webhook', $options);
   }
