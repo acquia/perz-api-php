@@ -111,11 +111,11 @@ class PerzApiPhpClient extends Client {
         'view_mode' => $data['view_mode'],
       ],
     ];
-    return $this->request('get', '/v1/contents/' . $data['uuid'], $options);
+    return $this->request('get', '/v3/contents/' . $data['uuid'], $options);
   }
 
   /**
-   * Search entities in Personalization.
+   * Get entities in Personalization.
    *
    * @param array $data
    *   An array of Entity data.
@@ -143,7 +143,7 @@ class PerzApiPhpClient extends Client {
    * @throws \GuzzleHttp\Exception\GuzzleException
    *   Guzzle Exception.
    */
-  public function searchEntities(array $data) {
+  public function getEntities(array $data) {
     $options = [
       'query' => [
         'account_id' => $data['account_id'],
@@ -163,7 +163,7 @@ class PerzApiPhpClient extends Client {
         'sort_order' => $data['sort_order'] ?? 'desc',
       ],
     ];
-    return $this->request('get', '/v1/contents/search', $options);
+    return $this->request('get', '/v3/contents', $options);
   }
 
   /**
@@ -201,7 +201,7 @@ class PerzApiPhpClient extends Client {
         'entity_uuid' => $data['entity_uuid'],
       ]),
     ];
-    return $this->request('post', '/v1/webhook', $options);
+    return $this->request('post', '/v3/webhook', $options);
   }
 
   /**
@@ -218,7 +218,7 @@ class PerzApiPhpClient extends Client {
    */
   public function callWebhook(array $data) {
     $options['body'] = json_encode($data);
-    return $this->request('post', '/v1/webhook', $options);
+    return $this->request('post', '/v3/webhook', $options);
   }
 
   /**
@@ -251,7 +251,7 @@ class PerzApiPhpClient extends Client {
         'view_mode' => $data['view_mode'],
       ],
     ];
-    return $this->request('delete', '/v1/contents/' . $data['uuid'], $options);
+    return $this->request('delete', '/v3/contents/' . $data['uuid'], $options);
   }
 
   /**
@@ -275,11 +275,14 @@ class PerzApiPhpClient extends Client {
     $options = [
       'query' => [
         'account_id' => $data['account_id'],
-        'origin' => $data['origin'],
         'environment' => $data['environment'],
+        'origin' => $data['origin'] ?? NULL,
+        'content_uuid' => $data['content_uuid'] ?? NULL,
+        'language' => $data['language'] ?? NULL,
+        'view_mode' => $data['view_mode'] ?? NULL,
       ],
     ];
-    return $this->request('delete', '/v1/contents', $options);
+    return $this->request('delete', '/v3/contents', $options);
   }
 
   /**
@@ -322,11 +325,10 @@ class PerzApiPhpClient extends Client {
         'account_id' => $data['account_id'],
         'origin' => $data['origin'],
         'environment' => $data['environment'],
-        'domain' => $data['domain'],
       ],
       'body' => json_encode($data['entity_variations']),
     ];
-    return $this->request('post', '/v1/contents', $options);
+    return $this->request('post', '/v3/contents', $options);
   }
 
   /**
@@ -354,11 +356,10 @@ class PerzApiPhpClient extends Client {
         'account_id' => $data['account_id'],
         'origin' => $data['origin'],
         'environment' => $data['environment'],
-        'domain' => $data['domain'],
       ],
       'body' => json_encode($data['entity_variations']),
     ];
-    return $this->request('put', '/v1/contents', $options);
+    return $this->request('put', '/v3/contents', $options);
   }
 
   /**
