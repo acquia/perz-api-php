@@ -69,9 +69,16 @@ class PerzApiPhpClientTest extends TestCase {
   }
 GQL;
 
-    $q = '{"query":"query getEntityVariations($entity_type_id: String!, $entity_uuid: String!) {\\n    entity_variations(entity_type_id: $entity_type_id, entity_uuid: $entity_uuid) {\\n      content_uuid,\\n      label,\\n      content_type,\\n      view_mode,\\n      language,\\n      updated,\\n      rendered_data,\\n      relations {\\n        field,\\n        terms\\n      }\\n    }\\n  }","variables":{"entity_type_id": "node","entity_uuid": "e549e7fc-1c15-4caa-b201-6f10abb06906"}}';
-    $client = new PerzApiPhpClient(['base_url' => 'http://acquia-perz.ddev.site/'], $middleware);
-    $response =  $client->graphql($q);
+    $q = '{"query":"query getEntityVariations($entity_type_id: String!, $entity_uuid: String!) {\\n    entity_variations(entity_type_id: $entity_type_id, entity_uuid: $entity_uuid) {\\n      content_uuid,\\n      label,\\n      content_type,\\n      view_mode,\\n      language,\\n      updated,\\n      rendered_data,\\n      relations {\\n        field,\\n        terms\\n      }\\n    }\\n  }","variables":{"entity_type_id": "node","entity_uuid": "16df7063-96e6-4b2c-82cb-a93a9f05a5ba"}}';
+    $d=  '{"query":"  query discoverEntities($page: Int! = 0) {\n    discover_entities(page: $page) {\n      page_info {\n        total_count\n        current_page_count\n        current_page\n        next_page\n        prev_page\n      }\n      items {\n        entity_type_id\n        entity_uuid\n      }\n    }\n  }","variables":{"page":0}}';
+    $client = new PerzApiPhpClient($middleware, ['base_url' => 'http://acquiaperz.ddev.site']);
+//    $options = [
+//        'account_id' => 'QRWX-204485',
+//        'origin' => '37t0s1',
+//        'environment' => 'dev',
+//        'uuid' => 'a57c108d-757c-46e8-9c5e-ff768982b337'
+//    ];
+    $response =  $client->graphql($d);
     var_dump($response->getBody()->getContents());
 
   }
