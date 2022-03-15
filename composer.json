@@ -21,7 +21,7 @@
         }
     ],
     "require": {
-        "acquia/http-hmac-php": "~3.4|~4.1.2",
+        "acquia/http-hmac-php": ">=3.4",
         "ext-json": "*",
         "php": ">=7.1",
         "psr/log": "~1.0",
