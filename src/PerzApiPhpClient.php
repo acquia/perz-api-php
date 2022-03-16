@@ -19,6 +19,8 @@ class PerzApiPhpClient extends Client {
 
   const OPTION_NAME_LANGUAGES = 'client-languages';
 
+  const  API_VERSION = 'v3';
+
   /**
    * {@inheritdoc}
    */
@@ -77,7 +79,6 @@ class PerzApiPhpClient extends Client {
     }
     $config['handler']->push($middleware);
     $this->addRequestResponseHandler($config);
-
     parent::__construct($config);
   }
 
@@ -111,7 +112,7 @@ class PerzApiPhpClient extends Client {
   public function getEntities(array $data) {
     $account_id = $data['account_id'];
     $environment = $data['environment'];
-    $uri = '/v3/accounts/' . $account_id . '/environments/' . $environment . '/contents';
+    $uri = '/' . self::API_VERSION . '/accounts/' . $account_id . '/environments/' . $environment . '/contents';
     $options = [
       'query' => [
         'origin' => $data['origin'] ?? NULL,
@@ -167,24 +168,7 @@ class PerzApiPhpClient extends Client {
         'entity_uuid' => $data['entity_uuid'],
       ]),
     ];
-    return $this->request('post', '/v3/webhook', $options);
-  }
-
-  /**
-   * Push multiple entities to Personalization.
-   *
-   * @param array $data
-   *   An array of Entity data.
-   *
-   * @return \Psr\Http\Message\ResponseInterface|void
-   *   Response.
-   *
-   * @throws \GuzzleHttp\Exception\GuzzleException
-   *   Guzzle Exception.
-   */
-  public function callWebhook(array $data) {
-    $options['body'] = json_encode($data);
-    return $this->request('post', '/v3/webhook', $options);
+    return $this->request('post', self::API_VERSION . '/webhook', $options);
   }
 
   /**
@@ -210,7 +194,7 @@ class PerzApiPhpClient extends Client {
   public function deleteEntities(array $data) {
     $account_id = $data['account_id'];
     $environment = $data['environment'];
-    $uri = '/v3/accounts/' . $account_id . '/environments/' . $environment . '/contents';
+    $uri = '/' . self::API_VERSION . '/accounts/' . $account_id . '/environments/' . $environment . '/contents';
     $options = [
       'query' => [
         'origin' => $data['origin'] ?? NULL,
@@ -225,7 +209,7 @@ class PerzApiPhpClient extends Client {
   /**
    * Graphql request.
    *
-   * * @param array $query
+   * * @param array $data
    *    Grahql Query data.
    */
   public function graphql(array $data) {
@@ -259,7 +243,7 @@ class PerzApiPhpClient extends Client {
   public function putVariations(array $data) {
     $account_id = $data['account_id'];
     $environment = $data['environment'];
-    $uri = '/v3/accounts/' . $account_id . '/environments/' . $environment . '/contents';
+    $uri = '/' . self::API_VERSION . '/accounts/' . $account_id . '/environments/' . $environment . '/contents';
     $options = [
       'query' => [
         'origin' => $data['origin'],
