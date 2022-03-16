@@ -83,7 +83,7 @@ class PerzApiPhpClient extends Client {
   }
 
   /**
-   * Get entities in Personalization.
+   * Get entities from Personalization.
    *
    * @param array $data
    *   An array of Entity data.
