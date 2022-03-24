@@ -19,6 +19,8 @@ class PerzApiPhpClient extends Client {
 
   const OPTION_NAME_LANGUAGES = 'client-languages';
 
+  const  API_VERSION = 'v3';
+
   /**
    * {@inheritdoc}
    */
@@ -77,52 +79,16 @@ class PerzApiPhpClient extends Client {
     }
     $config['handler']->push($middleware);
     $this->addRequestResponseHandler($config);
-
     parent::__construct($config);
   }
 
   /**
-   * Get entity from Personalization.
+   * Get entities from Personalization.
    *
    * @param array $data
    *   An array of Entity data.
    *   $data = [
-   *     'account_id' => (string) Acquia Account ID. Required.
    *     'origin' => (string) Site hash. Required.
-   *     'environment' => (string) Site environment. Required.
-   *     'language' => (string) Language of the entity. Required.
-   *     'view_mode' => (string) View mode of the entity. Required.
-   *     'uuid' => (string) UUID of the entity. Required.
-   *   ].
-   *
-   * @return \Psr\Http\Message\ResponseInterface|void
-   *   Response.
-   *
-   * @throws \GuzzleHttp\Exception\GuzzleException
-   *   Guzzle Exception.
-   */
-  public function getEntity(array $data) {
-    $options = [
-      'query' => [
-        'account_id' => $data['account_id'],
-        'origin' => $data['origin'],
-        'environment' => $data['environment'],
-        'language' => $data['language'],
-        'view_mode' => $data['view_mode'],
-      ],
-    ];
-    return $this->request('get', '/v3/contents/' . $data['uuid'], $options);
-  }
-
-  /**
-   * Get entities in Personalization.
-   *
-   * @param array $data
-   *   An array of Entity data.
-   *   $data = [
-   *     'account_id' => (string) Acquia Account ID. Required.
-   *     'origin' => (string) Site hash. Required.
-   *     'environment' => (string) Site environment. Required.
    *     'language' => (string) Entity Language. Optional.
    *     'view_mode' => (string) View mode of Entity. Optional.
    *     'q' => (string) Keywords to search. Optional.
@@ -144,11 +110,12 @@ class PerzApiPhpClient extends Client {
    *   Guzzle Exception.
    */
   public function getEntities(array $data) {
+    $account_id = $data['account_id'];
+    $environment = $data['environment'];
+    $uri = '/' . self::API_VERSION . '/accounts/' . $account_id . '/environments/' . $environment . '/contents';
     $options = [
       'query' => [
-        'account_id' => $data['account_id'],
-        'origin' => $data['origin'],
-        'environment' => $data['environment'],
+        'origin' => $data['origin'] ?? NULL,
         'language' => $data['language'] ?? NULL,
         'view_mode' => $data['view_mode'] ?? NULL,
         'q' => $data['q'] ?? NULL,
@@ -163,7 +130,7 @@ class PerzApiPhpClient extends Client {
         'sort_order' => $data['sort_order'] ?? 'desc',
       ],
     ];
-    return $this->request('get', '/v3/contents', $options);
+    return $this->request('get', $uri, $options);
   }
 
   /**
@@ -201,57 +168,7 @@ class PerzApiPhpClient extends Client {
         'entity_uuid' => $data['entity_uuid'],
       ]),
     ];
-    return $this->request('post', '/v3/webhook', $options);
-  }
-
-  /**
-   * Push multiple entities to Personalization.
-   *
-   * @param array $data
-   *   An array of Entity data.
-   *
-   * @return \Psr\Http\Message\ResponseInterface|void
-   *   Response.
-   *
-   * @throws \GuzzleHttp\Exception\GuzzleException
-   *   Guzzle Exception.
-   */
-  public function callWebhook(array $data) {
-    $options['body'] = json_encode($data);
-    return $this->request('post', '/v3/webhook', $options);
-  }
-
-  /**
-   * Delete entity from Personalization.
-   *
-   * @param array $data
-   *   An array of Entity data.
-   *   $data = [
-   *     'account_id' => (string) Acquia Account ID. Required.
-   *     'origin' => (string) Site hash. Required.
-   *     'environment' => (string) Site environment. Required.
-   *     'language' => (string) Language of the entity. Optional.
-   *     'view_mode' => (string) View mode of the entity. Optional.
-   *     'uuid' => (string) UUID of the entity. Required.
-   *   ].
-   *
-   * @return \Psr\Http\Message\ResponseInterface|void
-   *   Response.
-   *
-   * @throws \GuzzleHttp\Exception\GuzzleException
-   *   Guzzle Exception.
-   */
-  public function deleteEntity(array $data) {
-    $options = [
-      'query' => [
-        'account_id' => $data['account_id'],
-        'origin' => $data['origin'],
-        'environment' => $data['environment'],
-        'language' => $data['language'],
-        'view_mode' => $data['view_mode'],
-      ],
-    ];
-    return $this->request('delete', '/v3/contents/' . $data['uuid'], $options);
+    return $this->request('post', self::API_VERSION . '/webhook', $options);
   }
 
   /**
@@ -261,8 +178,11 @@ class PerzApiPhpClient extends Client {
    *   An array of Entity data.
    *   $data = [
    *     'account_id' => (string) Acquia Account ID. Required.
-   *     'origin' => (string) Site hash. Required.
    *     'environment' => (string) Site environment. Required.
+   *     'origin' => (string) Site hash.
+   *     'content_uuid' => (string) UUID of the entity.
+   *     'language' => (string) UUID of the entity.
+   *     'view_mode' => (string) UUID of the entity.
    *   ].
    *
    * @return \Psr\Http\Message\ResponseInterface|void
@@ -272,23 +192,24 @@ class PerzApiPhpClient extends Client {
    *   Guzzle Exception.
    */
   public function deleteEntities(array $data) {
+    $account_id = $data['account_id'];
+    $environment = $data['environment'];
+    $uri = '/' . self::API_VERSION . '/accounts/' . $account_id . '/environments/' . $environment . '/contents';
     $options = [
       'query' => [
-        'account_id' => $data['account_id'],
-        'environment' => $data['environment'],
         'origin' => $data['origin'] ?? NULL,
         'content_uuid' => $data['content_uuid'] ?? NULL,
         'language' => $data['language'] ?? NULL,
         'view_mode' => $data['view_mode'] ?? NULL,
       ],
     ];
-    return $this->request('delete', '/v3/contents', $options);
+    return $this->request('delete', $uri, $options);
   }
 
   /**
    * Graphql request.
    *
-   * * @param array $query
+   * * @param array $data
    *    Grahql Query data.
    */
   public function graphql(array $data) {
@@ -298,37 +219,6 @@ class PerzApiPhpClient extends Client {
     ];
     $options['body'] = json_encode($data);
     return $this->request('POST', '/perz3', $options);
-  }
-
-  /**
-   * Push entity to Personalization.
-   *
-   * @param array $data
-   *   An array of Entity data.
-   *   $data = [
-   *     'account_id' => (string) Acquia Account ID. Required.
-   *     'origin' => (string) Site hash. Required.
-   *     'environment' => (string) Site envireonment. Required.
-   *      'domain' => (string) Site Domain. Required.
-   *      'entity_variations' => (array) Entity variation data. Required.
-   *   ].
-   *
-   * @return \Psr\Http\Message\ResponseInterface|void
-   *   Response.
-   *
-   * @throws \GuzzleHttp\Exception\GuzzleException
-   *   Guzzle Exception.
-   */
-  public function postVariations(array $data) {
-    $options = [
-      'query' => [
-        'account_id' => $data['account_id'],
-        'origin' => $data['origin'],
-        'environment' => $data['environment'],
-      ],
-      'body' => json_encode($data['entity_variations']),
-    ];
-    return $this->request('post', '/v3/contents', $options);
   }
 
   /**
@@ -351,15 +241,16 @@ class PerzApiPhpClient extends Client {
    *   Guzzle Exception.
    */
   public function putVariations(array $data) {
+    $account_id = $data['account_id'];
+    $environment = $data['environment'];
+    $uri = '/' . self::API_VERSION . '/accounts/' . $account_id . '/environments/' . $environment . '/contents';
     $options = [
       'query' => [
-        'account_id' => $data['account_id'],
         'origin' => $data['origin'],
-        'environment' => $data['environment'],
       ],
       'body' => json_encode($data['entity_variations']),
     ];
-    return $this->request('put', '/v3/contents', $options);
+    return $this->request('put', $uri, $options);
   }
 
   /**
