@@ -101,6 +101,7 @@ class PerzApiPhpClient extends Client {
    *     'start' => (integer) Page start index. Default 0. Optional.
    *     'sort' => (string) Sort by field. Default modified. Optional.
    *     'sort_order' => (string) Sort order. Default desc. Optional.
+   *     'site_hash' => (string) Site hash. Optional.
    *   ].
    *
    * @return \Psr\Http\Message\ResponseInterface|void
@@ -128,6 +129,7 @@ class PerzApiPhpClient extends Client {
         'start' => $data['start'] ?? 0,
         'sort' => $data['sort'] ?? 'modified',
         'sort_order' => $data['sort_order'] ?? 'desc',
+        'site_hash' => $data['site_hash'] ?? NULL,
       ],
     ];
     return $this->request('get', $uri, $options);
@@ -143,9 +145,9 @@ class PerzApiPhpClient extends Client {
    *     'origin' => (string) Site hash. Required.
    *     'environment' => (string) Site environment. Required.
    *     'domain' => (string) Domain of the site. Required.
-   *     'op' => (string) View mode of the entity. Required.
    *     'entity_type_id' => (string) Entity Type,
    *     'entity_uuid' => (string) Entity uuid,
+   *     'site_hash' => (string) Site hash. Optional.
    *   ].
    *
    * @return \Psr\Http\Message\ResponseInterface|void
@@ -161,7 +163,7 @@ class PerzApiPhpClient extends Client {
         'origin' => $data['origin'],
         'environment' => $data['environment'],
         'domain' => $data['domain'],
-        'op' => $data['op'],
+        'site_hash' => $data['site_hash'] ?? NULL,
       ],
       'body' => json_encode([
         'entity_type_id' => $data['entity_type'],
@@ -183,6 +185,7 @@ class PerzApiPhpClient extends Client {
    *     'content_uuid' => (string) UUID of the entity.
    *     'language' => (string) UUID of the entity.
    *     'view_mode' => (string) UUID of the entity.
+   *     'site_hash' => (string) Site hash. Optional.
    *   ].
    *
    * @return \Psr\Http\Message\ResponseInterface|void
@@ -201,6 +204,7 @@ class PerzApiPhpClient extends Client {
         'content_uuid' => $data['content_uuid'] ?? NULL,
         'language' => $data['language'] ?? NULL,
         'view_mode' => $data['view_mode'] ?? NULL,
+        'site_hash' => $data['site_hash'] ?? NULL,
       ],
     ];
     return $this->request('delete', $uri, $options);
@@ -230,8 +234,9 @@ class PerzApiPhpClient extends Client {
    *     'account_id' => (string) Acquia Account ID. Required.
    *     'origin' => (string) Site hash. Required.
    *     'environment' => (string) Site envireonment. Required.
-   *      'domain' => (string) Site Domain. Required.
-   *      'entity_variations' => (array) Entity variation data. Required.
+   *     'domain' => (string) Site Domain. Required.
+   *     'entity_variations' => (array) Entity variation data. Required.
+   *     'site_hash' => (string) Site hash. Optional.
    *   ].
    *
    * @return \Psr\Http\Message\ResponseInterface|void
@@ -247,6 +252,7 @@ class PerzApiPhpClient extends Client {
     $options = [
       'query' => [
         'origin' => $data['origin'],
+        'site_hash' => $data['site_hash'] ?? NULL,
       ],
       'body' => json_encode($data['entity_variations']),
     ];
