@@ -53,7 +53,7 @@ class PerzApiPhpClient extends Client {
     }
 
     // Setting up the User Header string.
-    $user_agent_string = self::LIBRARYNAME . '/' . self::VERSION . ' ' . default_user_agent();
+    $user_agent_string = self::LIBRARYNAME . '/' . self::API_VERSION . ' ' . default_user_agent();
     if (isset($config['client-user-agent'])) {
       $user_agent_string = $config['client-user-agent'] . ' ' . $user_agent_string;
     }
