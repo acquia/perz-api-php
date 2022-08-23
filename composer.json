@@ -24,8 +24,8 @@
         "acquia/http-hmac-php": ">=3.4",
         "ext-json": "*",
         "php": ">=7.1",
-        "psr/log": "~1.0",
-        "guzzlehttp/guzzle": "~6.0"
+        "psr/log": "~1.0 || ^3.0",
+        "guzzlehttp/guzzle": "~6.0 || ^7.0"
     },
     "require-dev": {
         "drupal/coder": "^8.3",
