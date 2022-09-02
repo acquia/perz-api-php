@@ -12,24 +12,22 @@ $ composer require acquia/perz-api-php
 
 ## Usage
 
-#### Create API Client
+#### Create the API Client
 
 ```php
 use Acquia\PerzApiPhp\ObjectFactory;
 use Acquia\PerzApiPhp\PerzApiPhpClient;
 
-$base_uri = ' https://dummy.api.endpoint';
-$api_key = 'XXX-XXX-XXX';
-$secret_key = 'XXX-XXX-XXX';
+$base_uri = 'https://personalization.api.endpoint';
+$api_key = 'XXXXXX';
+$secret_key = 'XXXXXXXXXXXXXXXX';
 
 $key = ObjectFactory::getAuthenticationKey($api_key, $secret_key);
 $middleware = ObjectFactory::getHmacAuthMiddleware($key);
-$config = [
-  'base_url' => $base_uri,
-];
+$config = ['base_url' => $base_uri];
 $api_client =  new PerzApiPhpClient($middleware, $config);
 ```
-#### Create entity in Personalization
+#### Create entities in Personalization
 
 ```php
  /**
