@@ -1,6 +1,6 @@
-# Acquia Perz CIS Client for PHP
+# Acquia Personalization API Client for PHP
 
-Provides an API client for PHP applications communicating with the Acquia Personalization Content Index Service .
+Provides an API client for PHP applications communicating with the Acquia Personalization API .
 
 ## Installation
 
