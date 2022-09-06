@@ -118,19 +118,21 @@ class PerzApiPhpClient extends Client {
         'origin' => $data['origin'] ?? NULL,
         'language' => $data['language'] ?? NULL,
         'view_mode' => $data['view_mode'] ?? NULL,
+        'content_uuid' => $data['content_uuid'] ?? NULL,
         'q' => $data['q'] ?? NULL,
         'content_type' => $data['content_type'] ?? NULL,
         'tags' => $data['tags'] ?? NULL,
         'all_tags' => $data['all_tags'] ?? NULL,
         'date_start' => $data['date_start'] ?? NULL,
         'date_end' => $data['date_end'] ?? NULL,
-        'rows' => $data['rows'] ?? 10,
-        'start' => $data['start'] ?? 0,
-        'sort' => $data['sort'] ?? 'modified',
-        'sort_order' => $data['sort_order'] ?? 'desc',
+        'rows' => $data['rows'] ?? NULL,
+        'start' => $data['start'] ?? NULL,
+        'sort' => $data['sort'] ?? NULL,
+        'sort_order' => $data['sort_order'] ?? NULL,
       ],
     ];
-    return $this->request('get', $uri, $options);
+    $client = ObjectFactory::getGuzzleClient(['base_uri' => $this->baseUrl]);
+    return $client->get($uri, $options);
   }
 
   /**
