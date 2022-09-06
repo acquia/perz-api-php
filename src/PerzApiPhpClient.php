@@ -91,6 +91,7 @@ class PerzApiPhpClient extends Client {
    *     'origin' => (string) Site hash. Required.
    *     'language' => (string) Entity Language. Optional.
    *     'view_mode' => (string) View mode of Entity. Optional.
+   *     'content_uuid' => (string) UUID of Entity. Optional.
    *     'q' => (string) Keywords to search. Optional.
    *     'content_type' => (string) Type of the Entity. Oprional.
    *     'tags' =>  (string) Tags to search, Optional.
@@ -99,7 +100,7 @@ class PerzApiPhpClient extends Client {
    *     'date_end' => (datetime) End date of Entity update. Optional.
    *     'rows' => (integer) Number of rows in result. Default 10. Optional.
    *     'start' => (integer) Page start index. Default 0. Optional.
-   *     'sort' => (string) Sort by field. Default modified. Optional.
+   *     'sort' => (string) Sort by field. Default updated. Optional.
    *     'sort_order' => (string) Sort order. Default desc. Optional.
    *   ].
    *
