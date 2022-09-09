@@ -39,9 +39,9 @@ $api_client =  new PerzApiPhpClient($middleware, $config);
    *     'account_id' => (string) Acquia Account ID. Required.
    *     'origin' => (string) Site ID. Required.
    *     'environment' => (string) Site envireonment. Required.
-   *      'domain' => (string) Site Domain. Required.
-   *      'entity_variations' => (array) Entity variation data. Required.
-   *      'site_hash' => (string) Site hash. Optional.
+   *     'domain' => (string) Site Domain. Required.
+   *     'entity_variations' => (array) Entity variation data. Required.
+   *     'site_hash' => (string) Site hash. Optional.
    *   ].
    *
    * @return \Psr\Http\Message\ResponseInterface|void
