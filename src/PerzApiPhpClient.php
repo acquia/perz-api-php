@@ -124,10 +124,10 @@ class PerzApiPhpClient extends Client {
         'all_tags' => $data['all_tags'] ?? NULL,
         'date_start' => $data['date_start'] ?? NULL,
         'date_end' => $data['date_end'] ?? NULL,
-        'rows' => $data['rows'] ?? 10,
-        'start' => $data['start'] ?? 0,
-        'sort' => $data['sort'] ?? 'modified',
-        'sort_order' => $data['sort_order'] ?? 'desc',
+        'rows' => $data['rows'] ?? NULL,
+        'start' => $data['start'] ?? NULL,
+        'sort' => $data['sort'] ?? NULL,
+        'sort_order' => $data['sort_order'] ?? NULL,
       ],
     ];
     return $this->request('get', $uri, $options);
